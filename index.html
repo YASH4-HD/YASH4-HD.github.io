@@ -68,6 +68,7 @@
     display: flex;
     gap: 2.5rem;
     list-style: none;
+    align-items: center;
   }
 
   nav a {
@@ -81,6 +82,24 @@
   }
 
   nav a:hover { color: var(--coral); }
+
+  .nav-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.15);
+    text-decoration: none;
+    color: var(--ink) !important;
+    letter-spacing: 0.04em;
+    text-transform: none !important;
+    transition: all 0.2s;
+  }
+
+  .nav-icon-btn:hover { background: var(--ink); color: var(--paper) !important; border-color: var(--ink); }
 
   /* ── HERO ── */
   #hero {
@@ -523,12 +542,15 @@
   }
 
   .fade-up {
-    opacity: 0;
-    transform: translateY(24px);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .fade-up.hidden {
+    opacity: 0;
+    transform: translateY(24px);
+  }
 
   /* ── SCROLLBAR ── */
   ::-webkit-scrollbar { width: 6px; }
@@ -556,10 +578,12 @@
   <a href="#" class="nav-logo">Y<span>.</span>Nama</a>
   <ul>
     <li><a href="#about">About</a></li>
-    <li><a href="#preprints">Research</a></li>
+    <li><a href="#preprints">Publications</a></li>
     <li><a href="#tools">Tools</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="https://github.com/YASH4-HD" target="_blank" class="nav-icon-btn">⌥ GitHub</a></li>
+    <li><a href="https://orcid.org/0009-0003-3443-4413" target="_blank" class="nav-icon-btn">◎ ORCID</a></li>
   </ul>
 </nav>
 
@@ -571,6 +595,9 @@
 
   <div class="hero-text">
     <div class="hero-tag">Independent Computational Researcher</div>
+    <div style="font-family:'DM Mono',monospace;font-size:0.8rem;color:var(--muted);margin-bottom:1rem;letter-spacing:0.03em;animation:fade-up 0.6s 0.05s ease both;">
+      Focus: <span style="color:var(--coral)">Single-cell genomics</span> · <span style="color:var(--teal)">Computational bias detection</span> · <span style="color:var(--violet)">AI for biological systems</span>
+    </div>
     <h1>
       Yashwant<br>
       <span class="accent-coral">Nama</span>
@@ -581,7 +608,7 @@
     <div class="hero-links">
       <a href="https://github.com/YASH4-HD" target="_blank" class="btn btn-primary">GitHub ↗</a>
       <a href="https://orcid.org/0009-0003-3443-4413" target="_blank" class="btn btn-ghost">ORCID ↗</a>
-      <a href="mailto:nama.yashwant@gmail.com" class="btn btn-ghost">Email</a>
+      <a href="/cdn-cgi/l/email-protection#f997989498d780988a918e98978db99e94989095d79a9694" class="btn btn-ghost">Email</a>
     </div>
   </div>
 
@@ -629,7 +656,7 @@
           <div class="highlight-icon">🖥️</div>
           <div class="highlight-text">
             <strong>Hardware</strong>
-            NVIDIA RTX 4060 GPU · 32GB RAM · CUDA-accelerated workflows
+            All models developed and validated on an NVIDIA RTX 4060 (local GPU environment) · 32GB RAM · CUDA-accelerated workflows
           </div>
         </div>
         <div class="highlight-item">
@@ -653,32 +680,42 @@
 
 <!-- PREPRINTS -->
 <section id="preprints">
-  <div class="section-label">Publications</div>
-  <h2>Research & Preprints</h2>
-  <div class="preprints-grid">
+  <div class="section-label">Publications & Preprints</div>
+  <h2>Research Output</h2>
 
-    <a href="https://doi.org/10.21203/rs.3.rs-9160410/v1" target="_blank" class="preprint-card fade-up">
+  <div style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);margin-bottom:0.6rem;text-transform:uppercase;letter-spacing:0.1em;">⭐ Featured Work</div>
+  <div class="preprints-grid" style="margin-bottom:2.5rem;">
+
+    <a href="https://doi.org/10.21203/rs.3.rs-9160410/v1" target="_blank" class="preprint-card fade-up" style="border-left:4px solid var(--coral);">
       <div class="preprint-num">01</div>
       <div class="preprint-body">
         <h3>scRNA-seq Bias Detector: An Integrated Unsupervised Anomaly Recognition and Multi-Track Quality Control Framework for Single-Cell Transcriptomics</h3>
+        <div style="font-size:0.9rem;color:var(--coral);font-style:italic;margin:0.4rem 0 0.5rem;">→ Detects and quantifies batch effects in single-cell data to improve reproducibility.</div>
         <div class="preprint-meta">Research Square · March 2026 · DOI: 10.21203/rs.3.rs-9160410/v1</div>
       </div>
-      <span class="preprint-tag tag-coral">scRNA-seq</span>
+      <span class="preprint-tag tag-coral">scRNA-seq · MAIN</span>
     </a>
 
-    <a href="https://doi.org/10.21203/rs.3.rs-9140281/v1" target="_blank" class="preprint-card fade-up">
+    <a href="https://doi.org/10.21203/rs.3.rs-9140281/v1" target="_blank" class="preprint-card fade-up" style="border-left:4px solid var(--teal);">
       <div class="preprint-num">02</div>
       <div class="preprint-body">
         <h3>PanGen-AI: A CNN-Based Framework for Pathogen Variant Impact Prediction and Pangenomic Visualization</h3>
+        <div style="font-size:0.9rem;color:#009e87;font-style:italic;margin:0.4rem 0 0.5rem;">→ Predicts pathogen variant impact using deep learning on genomic sequences.</div>
         <div class="preprint-meta">Research Square · 2026 · DOI: 10.21203/rs.3.rs-9140281/v1</div>
       </div>
-      <span class="preprint-tag tag-teal">Deep Learning</span>
+      <span class="preprint-tag tag-teal">Deep Learning · Secondary</span>
     </a>
+
+  </div>
+
+  <div style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);margin-bottom:0.6rem;text-transform:uppercase;letter-spacing:0.1em;">📚 Additional Work</div>
+  <div class="preprints-grid">
 
     <a href="https://doi.org/10.21203/rs.3.rs-9021170/v1" target="_blank" class="preprint-card fade-up">
       <div class="preprint-num">03</div>
       <div class="preprint-body">
         <h3>CD40-Immunosome: A Systems Modeling Framework for CD40–TRAF6 Signaling and CRISPR Synergy in Macrophages</h3>
+        <div style="font-size:0.9rem;color:var(--muted);font-style:italic;margin:0.4rem 0 0.5rem;">→ Models macrophage immune signalling with ODE systems and CRISPR perturbation simulation.</div>
         <div class="preprint-meta">Research Square · 2026 · DOI: 10.21203/rs.3.rs-9021170/v1</div>
       </div>
       <span class="preprint-tag tag-violet">Systems Biology</span>
@@ -688,6 +725,7 @@
       <div class="preprint-num">04</div>
       <div class="preprint-body">
         <h3>Automated 3D Morphometric Analysis Reveals Nuclear Hypertrophy and Reduced Cell Density in cdh2-Deficient Zebrafish Embryos</h3>
+        <div style="font-size:0.9rem;color:var(--muted);font-style:italic;margin:0.4rem 0 0.5rem;">→ Quantifies 3D nuclear architecture in zebrafish embryos using voxel-based morphometry.</div>
         <div class="preprint-meta">Research Square · 2026 · DOI: 10.21203/rs.3.rs-8986693/v1</div>
       </div>
       <span class="preprint-tag tag-gold">Spatial Analysis</span>
@@ -814,18 +852,16 @@
 </div>
 
 <script>
-  // Scroll-triggered fade-up animations
+  document.querySelectorAll(".fade-up").forEach(el => el.classList.add("hidden"));
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        setTimeout(() => entry.target.classList.remove("hidden"), i * 80);
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  }, { threshold: 0.05 });
+  document.querySelectorAll(".fade-up").forEach(el => observer.observe(el));
 </script>
-
 </body>
 </html>
