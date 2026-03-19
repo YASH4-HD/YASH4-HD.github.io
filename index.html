@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yashwant Nama — Computational Researcher</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Literata:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --paper: #faf8f4;
+    --coral: #ff4d3d;
+    --teal: #00c2a8;
+    --gold: #f5c842;
+    --violet: #7c4dff;
+    --slate: #1a1a2e;
+    --muted: #6b6560;
+    --card-bg: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Literata', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(250, 248, 244, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--coral); }
+
+  nav ul {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    text-decoration: none;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--coral); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.18;
+    pointer-events: none;
+  }
+
+  .blob-1 { width: 600px; height: 600px; background: var(--coral); top: -100px; right: -100px; animation: blob-drift 8s ease-in-out infinite alternate; }
+  .blob-2 { width: 400px; height: 400px; background: var(--teal); bottom: 0; left: -50px; animation: blob-drift 10s ease-in-out infinite alternate-reverse; }
+  .blob-3 { width: 300px; height: 300px; background: var(--gold); top: 40%; left: 40%; animation: blob-drift 12s ease-in-out infinite alternate; }
+
+  @keyframes blob-drift {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(30px, -30px) scale(1.05); }
+  }
+
+  .hero-text { position: relative; z-index: 2; }
+
+  .hero-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--coral);
+    border: 1.5px solid var(--coral);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    animation: fade-up 0.6s ease both;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    animation: fade-up 0.6s 0.1s ease both;
+  }
+
+  h1 .accent-coral { color: var(--coral); }
+  h1 .accent-teal { color: var(--teal); }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    margin: 1.5rem 0 2rem;
+    line-height: 1.7;
+    max-width: 480px;
+    animation: fade-up 0.6s 0.2s ease both;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fade-up 0.6s 0.3s ease both;
+  }
+
+  .btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+
+  .btn-primary { background: var(--coral); color: white; }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+  .hero-stats {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding-left: 4rem;
+  }
+
+  .stat-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.8rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.05);
+    animation: fade-up 0.6s ease both;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+  .stat-card:nth-child(1) { animation-delay: 0.2s; border-top: 3px solid var(--coral); }
+  .stat-card:nth-child(2) { animation-delay: 0.3s; border-top: 3px solid var(--teal); }
+  .stat-card:nth-child(3) { animation-delay: 0.4s; border-top: 3px solid var(--gold); }
+  .stat-card:nth-child(4) { animation-delay: 0.5s; border-top: 3px solid var(--violet); }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2.8rem;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-top: 0.4rem;
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 6rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--slate);
+    color: var(--paper);
+    max-width: 100%;
+    padding: 6rem 4rem;
+  }
+
+  #about .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  #about h2 { color: var(--paper); }
+  #about .section-label { color: var(--teal); }
+
+  .about-body {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: rgba(250,248,244,0.75);
+  }
+
+  .about-body p + p { margin-top: 1.2rem; }
+
+  .about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    border-left: 3px solid var(--teal);
+  }
+
+  .highlight-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .highlight-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: rgba(250,248,244,0.8);
+    line-height: 1.6;
+  }
+
+  .highlight-text strong {
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── PREPRINTS ── */
+  .preprints-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .preprint-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1.5rem;
+    align-items: start;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .preprint-card:hover { transform: translateX(6px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+
+  .preprint-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+    color: rgba(0,0,0,0.08);
+    line-height: 1;
+    min-width: 2.5rem;
+  }
+
+  .preprint-body h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+
+  .preprint-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+
+  .preprint-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.7rem;
+    border-radius: 3px;
+    white-space: nowrap;
+    align-self: start;
+  }
+
+  .tag-coral { background: rgba(255,77,61,0.1); color: var(--coral); }
+  .tag-teal { background: rgba(0,194,168,0.1); color: #009e87; }
+  .tag-gold { background: rgba(245,200,66,0.15); color: #c49a00; }
+  .tag-violet { background: rgba(124,77,255,0.1); color: var(--violet); }
+
+  /* ── TOOLS ── */
+  #tools { background: #f0faf8; max-width: 100%; padding: 6rem 4rem; }
+  #tools .inner { max-width: 1200px; margin: 0 auto; }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .tool-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.8rem;
+    border: 1px solid rgba(0,194,168,0.15);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,194,168,0.15); }
+
+  .tool-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .tool-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .tool-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .tool-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--teal);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── SKILLS ── */
+  .skills-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .skill-group h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--gold);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.04);
+    color: var(--ink);
+    border: 1px solid rgba(0,0,0,0.08);
+    transition: background 0.15s;
+  }
+
+  .skill-tag:hover { background: var(--gold); border-color: var(--gold); }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--ink);
+    color: var(--paper);
+    max-width: 100%;
+    padding: 6rem 4rem;
+    text-align: center;
+  }
+
+  #contact .inner { max-width: 700px; margin: 0 auto; }
+  #contact h2 { color: var(--paper); }
+  #contact .section-label { color: var(--coral); }
+
+  .contact-sub {
+    font-size: 1.1rem;
+    color: rgba(250,248,244,0.6);
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .contact-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    color: rgba(250,248,244,0.7);
+    text-decoration: none;
+    padding: 0.7rem 1.4rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+  }
+
+  .contact-item:hover {
+    background: var(--coral);
+    border-color: var(--coral);
+    color: white;
+  }
+
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: rgba(250,248,244,0.3);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb { background: var(--coral); border-radius: 3px; }
+
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; }
+    .hero-stats { padding-left: 0; margin-top: 3rem; }
+    #about .inner { grid-template-columns: 1fr; gap: 3rem; }
+    .skills-wrapper { grid-template-columns: 1fr 1fr; }
+    nav { padding: 1rem 2rem; }
+    nav ul { gap: 1.5rem; }
+    section { padding: 4rem 2rem; }
+    #about, #tools, #contact { padding: 4rem 2rem; }
+    .preprint-card { grid-template-columns: 1fr; }
+    .preprint-num { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Y<span>.</span>Nama</a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#preprints">Research</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-blob blob-1"></div>
+  <div class="hero-bg-blob blob-2"></div>
+  <div class="hero-bg-blob blob-3"></div>
+
+  <div class="hero-text">
+    <div class="hero-tag">Independent Computational Researcher</div>
+    <h1>
+      Yashwant<br>
+      <span class="accent-coral">Nama</span>
+    </h1>
+    <p class="hero-sub">
+      Building computational biology tools at the intersection of single-cell genomics, systems immunology, and machine learning — independently, from Jaipur, India.
+    </p>
+    <div class="hero-links">
+      <a href="https://github.com/YASH4-HD" target="_blank" class="btn btn-primary">GitHub ↗</a>
+      <a href="https://orcid.org/0009-0003-3443-4413" target="_blank" class="btn btn-ghost">ORCID ↗</a>
+      <a href="mailto:nama.yashwant@gmail.com" class="btn btn-ghost">Email</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--coral)">4</div>
+      <div class="stat-label">Preprints Published</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--teal)">7</div>
+      <div class="stat-label">Live Tools Deployed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--gold)">419</div>
+      <div class="stat-label">GATE 2025 Score</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--violet)">N5</div>
+      <div class="stat-label">JLPT Japanese</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div id="about">
+  <div class="inner">
+    <div>
+      <div class="section-label">About Me</div>
+      <h2>Self-directed.<br>GPU-powered.<br>Independently published.</h2>
+    </div>
+    <div>
+      <div class="about-body">
+        <p>I am an independent computational researcher based in Jaipur, India, working at the intersection of single-cell transcriptomics, systems immunology, and machine learning. I hold an M.Sc. in Zoology (First Division, 72.68%) from the University of Rajasthan.</p>
+        <p>Without institutional affiliation, laboratory access, or external funding, I have authored four peer-reviewed preprints and deployed seven live bioinformatics tools — using only a personal NVIDIA RTX 4060 GPU and self-directed study. I believe rigorous computational biology can happen anywhere.</p>
+      </div>
+      <div class="about-highlights" style="margin-top:2rem">
+        <div class="highlight-item">
+          <div class="highlight-icon">🧬</div>
+          <div class="highlight-text">
+            <strong>Research Focus</strong>
+            Single-cell genomics, batch effect detection, systems immunology, GNN-based cell analysis
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">🖥️</div>
+          <div class="highlight-text">
+            <strong>Hardware</strong>
+            NVIDIA RTX 4060 GPU · 32GB RAM · CUDA-accelerated workflows
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">🌏</div>
+          <div class="highlight-text">
+            <strong>Languages</strong>
+            Hindi (Native) · English (C1/C2) · Japanese JLPT N5 · German A1
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">🏆</div>
+          <div class="highlight-text">
+            <strong>Recognition</strong>
+            GATE 2025 Life Sciences Qualifier · CRISPR Innovation Competition 2nd Prize · Rapture Biotech A+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PREPRINTS -->
+<section id="preprints">
+  <div class="section-label">Publications</div>
+  <h2>Research & Preprints</h2>
+  <div class="preprints-grid">
+
+    <a href="https://doi.org/10.21203/rs.3.rs-9160410/v1" target="_blank" class="preprint-card fade-up">
+      <div class="preprint-num">01</div>
+      <div class="preprint-body">
+        <h3>scRNA-seq Bias Detector: An Integrated Unsupervised Anomaly Recognition and Multi-Track Quality Control Framework for Single-Cell Transcriptomics</h3>
+        <div class="preprint-meta">Research Square · March 2026 · DOI: 10.21203/rs.3.rs-9160410/v1</div>
+      </div>
+      <span class="preprint-tag tag-coral">scRNA-seq</span>
+    </a>
+
+    <a href="https://doi.org/10.21203/rs.3.rs-9140281/v1" target="_blank" class="preprint-card fade-up">
+      <div class="preprint-num">02</div>
+      <div class="preprint-body">
+        <h3>PanGen-AI: A CNN-Based Framework for Pathogen Variant Impact Prediction and Pangenomic Visualization</h3>
+        <div class="preprint-meta">Research Square · 2026 · DOI: 10.21203/rs.3.rs-9140281/v1</div>
+      </div>
+      <span class="preprint-tag tag-teal">Deep Learning</span>
+    </a>
+
+    <a href="https://doi.org/10.21203/rs.3.rs-9021170/v1" target="_blank" class="preprint-card fade-up">
+      <div class="preprint-num">03</div>
+      <div class="preprint-body">
+        <h3>CD40-Immunosome: A Systems Modeling Framework for CD40–TRAF6 Signaling and CRISPR Synergy in Macrophages</h3>
+        <div class="preprint-meta">Research Square · 2026 · DOI: 10.21203/rs.3.rs-9021170/v1</div>
+      </div>
+      <span class="preprint-tag tag-violet">Systems Biology</span>
+    </a>
+
+    <a href="https://doi.org/10.21203/rs.3.rs-8986693/v1" target="_blank" class="preprint-card fade-up">
+      <div class="preprint-num">04</div>
+      <div class="preprint-body">
+        <h3>Automated 3D Morphometric Analysis Reveals Nuclear Hypertrophy and Reduced Cell Density in cdh2-Deficient Zebrafish Embryos</h3>
+        <div class="preprint-meta">Research Square · 2026 · DOI: 10.21203/rs.3.rs-8986693/v1</div>
+      </div>
+      <span class="preprint-tag tag-gold">Spatial Analysis</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- TOOLS -->
+<div id="tools">
+  <div class="inner">
+    <div class="section-label">Software</div>
+    <h2>Live Tools & Applications</h2>
+    <div class="tools-grid">
+
+      <a href="https://scrna-bias-detector.streamlit.app" target="_blank" class="tool-card fade-up">
+        <div class="tool-icon" style="background:rgba(255,77,61,0.1)">🔬</div>
+        <h3>scRNA-seq Bias Detector</h3>
+        <p class="tool-desc">Seven-module QC framework with Harmony batch correction, GNN cell similarity, and UMAP/t-SNE for single-cell transcriptomics.</p>
+        <div class="tool-link">scrna-bias-detector.streamlit.app ↗</div>
+      </a>
+
+      <a href="https://pangen-ai-yash.streamlit.app" target="_blank" class="tool-card fade-up">
+        <div class="tool-icon" style="background:rgba(0,194,168,0.1)">🧠</div>
+        <h3>PanGen-AI</h3>
+        <p class="tool-desc">CNN-based pathogen variant impact predictor with gradient saliency visualisation for pangenomic data analysis.</p>
+        <div class="tool-link">pangen-ai-yash.streamlit.app ↗</div>
+      </a>
+
+      <a href="https://cd40-immunosome-tool-yash.streamlit.app" target="_blank" class="tool-card fade-up">
+        <div class="tool-icon" style="background:rgba(124,77,255,0.1)">⚙️</div>
+        <h3>CD40-Immunosome Explorer</h3>
+        <p class="tool-desc">ODE-based systems model of CD40–TRAF6–NF-κB signalling with CRISPR perturbation simulation in macrophages.</p>
+        <div class="tool-link">cd40-immunosome-tool-yash.streamlit.app ↗</div>
+      </a>
+
+      <a href="https://github.com/YASH4-HD/epicrispr-ml" target="_blank" class="tool-card fade-up">
+        <div class="tool-icon" style="background:rgba(245,200,66,0.15)">✂️</div>
+        <h3>EpiCRISPR-ML</h3>
+        <p class="tool-desc">Epigenetic-aware CRISPR guide scoring and Cas variant fitness prediction combining CpG methylation, chromatin state, and Gradient Boosting.</p>
+        <div class="tool-link">github.com/YASH4-HD/epicrispr-ml ↗</div>
+      </a>
+
+      <a href="https://huntington-research-yash.streamlit.app" target="_blank" class="tool-card fade-up">
+        <div class="tool-icon" style="background:rgba(255,77,61,0.08)">🧩</div>
+        <h3>Huntington's Disease App</h3>
+        <p class="tool-desc">Neurometabolic pathway enrichment and mHTT expression analysis pipeline for Huntington's Disease research.</p>
+        <div class="tool-link">huntington-research-yash.streamlit.app ↗</div>
+      </a>
+
+      <a href="https://github.com/YASH4-HD" target="_blank" class="tool-card fade-up">
+        <div class="tool-icon" style="background:rgba(0,194,168,0.08)">📦</div>
+        <h3>More on GitHub</h3>
+        <p class="tool-desc">All repositories, source code, and supplementary materials for all published research and tools.</p>
+        <div class="tool-link">github.com/YASH4-HD ↗</div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Technical Profile</div>
+  <h2>Skills & Stack</h2>
+  <div class="skills-wrapper">
+    <div class="skill-group fade-up">
+      <h3>Languages & Frameworks</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">R</span>
+        <span class="skill-tag">PyTorch</span>
+        <span class="skill-tag">scikit-learn</span>
+        <span class="skill-tag">Pandas</span>
+        <span class="skill-tag">NumPy</span>
+        <span class="skill-tag">SciPy</span>
+        <span class="skill-tag">Streamlit</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <h3>Bioinformatics</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">scRNA-seq</span>
+        <span class="skill-tag">Harmony</span>
+        <span class="skill-tag">UMAP/t-SNE</span>
+        <span class="skill-tag">GNN</span>
+        <span class="skill-tag">ODE Modelling</span>
+        <span class="skill-tag">CRISPR Sim</span>
+        <span class="skill-tag">Batch Correction</span>
+        <span class="skill-tag">AlphaFold</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <h3>Hardware & Wet Lab</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">NVIDIA RTX 4060</span>
+        <span class="skill-tag">CUDA</span>
+        <span class="skill-tag">DNA/RNA Isolation</span>
+        <span class="skill-tag">PCR</span>
+        <span class="skill-tag">Gel Electrophoresis</span>
+        <span class="skill-tag">Microbial Culture</span>
+        <span class="skill-tag">Git / GitHub</span>
+        <span class="skill-tag">LaTeX</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contact">
+  <div class="inner">
+    <div class="section-label">Get In Touch</div>
+    <h2>Let's Connect</h2>
+    <p class="contact-sub">
+      Open to PhD opportunities, research collaborations, and conversations about computational biology. Currently applying to positions in Germany, Japan, Lithuania, Sweden, and Switzerland.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:nama.yashwant@gmail.com" class="contact-item">✉ nama.yashwant@gmail.com</a>
+      <a href="https://github.com/YASH4-HD" target="_blank" class="contact-item">⌥ github.com/YASH4-HD</a>
+      <a href="https://orcid.org/0009-0003-3443-4413" target="_blank" class="contact-item">◎ ORCID</a>
+    </div>
+    <div class="footer-note">Jaipur, Rajasthan, India · Independent Computational Researcher · March 2026</div>
+  </div>
+</div>
+
+<script>
+  // Scroll-triggered fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
